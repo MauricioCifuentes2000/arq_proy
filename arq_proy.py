@@ -5,7 +5,7 @@ import sys
 
 def binary_to_hexadecimal(binary_str):
     """
-    Convierte un número binario (con parte entera y fraccionaria) a hexadecimal.
+    Convierte un numero binario (con parte entera y fraccionaria) a hexadecimal.
     """
     if '.' in binary_str:
         integer_part, fractional_part = binary_str.split('.')
@@ -39,13 +39,13 @@ def binary_to_hexadecimal(binary_str):
 def restricted_complement(binary_str):
     """
     Calcula el complemento restringido de un número binario.
-    Suposición: El primer bit es el bit de signo y no se invierte.
+    Suposicion: El primer bit es el bit de signo y no se invierte.
     """
     if not all(c in '01' for c in binary_str):
-        return "Error: La entrada no es un número binario válido."
+        return "Error: La entrada no es un numero binario valido."
 
     if len(binary_str) == 0:
-        return "Error: Entrada vacía."
+        return "Error: Entrada vacia."
 
     # El primer bit (bit de signo) permanece igual
     sign_bit = binary_str[0]
@@ -55,7 +55,7 @@ def restricted_complement(binary_str):
 
 def decimal_to_hexadecimal(decimal_str):
     """
-    Convierte un número decimal (con parte entera y fraccionaria) a hexadecimal,
+    Convierte un numero decimal (con parte entera y fraccionaria) a hexadecimal,
     mostrando periodicidad si existe.
     """
     if '.' in decimal_str:
@@ -100,27 +100,27 @@ def decimal_to_hexadecimal(decimal_str):
 
 def display_menu():
     """
-    Muestra el menú de opciones al usuario.
+    Muestra el menu de opciones al usuario.
     """
-    print("\n===== Menú de Operaciones =====")
-    print("1. Conversión de Binario a Hexadecimal")
-    print("2. Obtener el Complemento Restringido de un Número Binario")
-    print("3. Conversión de Decimal a Hexadecimal")
+    print("\n===== Menu de Operaciones =====")
+    print("1. Conversion de Binario a Hexadecimal")
+    print("2. Obtener el Complemento Restringido de un Numero Binario")
+    print("3. Conversion de Decimal a Hexadecimal")
     print("4. Salir")
     print("================================")
 
 def main():
     while True:
         display_menu()
-        choice = input("Selecciona una opción (1-4): ").strip()
+        choice = input("Selecciona una opcion (1-4): ").strip()
 
         if choice == '1':
-            binary_input = input("Introduce el número binario (ejemplo: 1010.101): ").strip()
+            binary_input = input("Introduce el numero binario (ejemplo: 1010.101): ").strip()
             result = binary_to_hexadecimal(binary_input)
             print(f"Hexadecimal: {result}")
 
         elif choice == '2':
-            binary_input = input("Introduce el número binario para obtener su complemento restringido: ").strip()
+            binary_input = input("Introduce el numero binario para obtener su complemento restringido: ").strip()
             result = restricted_complement(binary_input)
             print(f"Complemento Restringido: {result}")
 
@@ -132,26 +132,26 @@ def main():
                 result = decimal_to_hexadecimal(decimal_input)
                 print(f"Hexadecimal: {result}")
             except ValueError:
-                print("Error: Entrada no es un número decimal válido.")
+                print("Error: Entrada no es un numero decimal valido.")
 
         elif choice == '4':
-            print("¡Gracias por usar el programa! Hasta luego.")
+            print("Gracias por usar el programa! Hasta luego.")
             sys.exit()
 
         else:
-            print("Opción inválida. Por favor, elige una opción entre 1 y 4.")
+            print("Opcion invalida. Por favor, elige una opcion entre 1 y 4.")
             continue
 
         # Preguntar si el usuario desea realizar otra operación
         while True:
-            again = input("¿Deseas realizar otra operación? (s/n): ").strip().lower()
+            again = input("Deseas realizar otra operacion? (s/n): ").strip().lower()
             if again == 's':
                 break
             elif again == 'n':
-                print("¡Gracias por usar el programa! Hasta luego.")
+                print("Gracias por usar el programa! Hasta luego.")
                 sys.exit()
             else:
-                print("Entrada inválida. Por favor, responde con 's' o 'n'.")
+                print("Entrada invalida. Por favor, responde con 's' o 'n'.")
 
 if __name__ == "__main__":
     main()

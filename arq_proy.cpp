@@ -140,7 +140,7 @@ int main() {
 
         // Preguntar si el usuario desea realizar otra operación
         char again;
-        cout << "Deseas realizar otra operación? (s/n): ";
+        cout << "Deseas realizar otra operacion? (s/n): ";
         cin >> again;
         if (again == 'n' || again == 'N') {
             cout << "Gracias! Hasta luego" << endl;
