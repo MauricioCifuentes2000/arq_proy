@@ -1,25 +1,34 @@
 #include <iostream>
 #include <string>
 #include <cmath>
-#include <sstream>
-#include <unordered_map>
 
 using namespace std;
 
-// Funcion para convertir binario a hexadecimal
+// Función para convertir un número entero a hexadecimal 
+string intToHex(unsigned long long int intDecimal) {
+    string hex = "";
+    if (intDecimal == 0) return "0";
+
+    char hexChars[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+    while (intDecimal > 0) {
+        hex = hexChars[intDecimal % 16] + hex;
+        intDecimal /= 16;
+    }
+    return hex;
+}
+
+// Función para convertir binario a hexadecimal 
 string binaryToHex(string binary) {
     int pointPos = binary.find('.');
 
     string intPart = binary.substr(0, pointPos);
     string fracPart = pointPos != string::npos ? binary.substr(pointPos + 1) : "";
 
-    // Conversion de la parte entera
+    // Conversión de la parte entera
     unsigned long long int intDecimal = stoull(intPart, nullptr, 2);
-    stringstream hexStream;
-    hexStream << hex << intDecimal;
-    string hexInteger = hexStream.str();
+    string hexInteger = intToHex(intDecimal);
 
-    // Conversion de la parte fraccionaria
+    // Conversión de la parte fraccionaria
     double fracDecimal = 0.0;
     if (!fracPart.empty()) {
         for (size_t i = 0; i < fracPart.size(); ++i) {
@@ -36,7 +45,7 @@ string binaryToHex(string binary) {
         hexFractional += (fracInt < 10) ? to_string(fracInt) : string(1, 'A' + fracInt - 10);
         fracDecimal -= fracInt;
 
-        if (hexFractional.size() > 10) {  // Limitar a 10 
+        if (hexFractional.size() > 10) {  // Limitar a 10 dígitos
             break;
         }
     }
@@ -44,9 +53,9 @@ string binaryToHex(string binary) {
     return fracPart.empty() ? hexInteger : hexInteger + "." + hexFractional;
 }
 
-// Funcion para calcular el complemento restringido de un num bin
+// Función para calcular el complemento restringido de un número binario
 string restrictedComplement(string binary) {
-    if (binary.empty()) return "Error: Cadena vacía";
+    if (binary.empty()) return "Error: Cadena vacia";
 
     // El primer bit (bit de signo) se mantiene, los demás se invierten
     string complement = binary[0] == '0' ? "0" : "1";  // Mantiene el primer bit
@@ -56,7 +65,7 @@ string restrictedComplement(string binary) {
     return complement;
 }
 
-// Función para convertir decimal a hexadecimal (con manejo de periodicidad)
+// Función para convertir decimal a hexadecimal 
 string decimalToHex(string decimal) {
     int pointPos = decimal.find('.');
 
@@ -65,37 +74,23 @@ string decimalToHex(string decimal) {
 
     // Convertir la parte entera a hexadecimal
     unsigned long long int intDecimal = stoull(intPart);
-    stringstream hexStream;
-    hexStream << hex << intDecimal;
-    string hexInteger = hexStream.str();
+    string hexInteger = intToHex(intDecimal);
 
-    // Conversion de la parte fraccionaria
+    // Conversión de la parte fraccionaria
     double fracDecimal = fracPart.empty() ? 0.0 : stod("0." + fracPart);
-    unordered_map<double, int> seen;
     string hexFractional = "";
-    int repeatStart = -1;
 
-    for (int i = 0; fracDecimal != 0.0 && i < 20; ++i) {  // Limitar a 20 digitos
-        if (seen.find(fracDecimal) != seen.end()) {
-            repeatStart = seen[fracDecimal];
-            break;
-        }
-
-        seen[fracDecimal] = i;
+    for (int i = 0; fracDecimal != 0.0 && i < 20; ++i) {  // Limitar a 20 dígitos
         fracDecimal *= 16;
         int fracInt = static_cast<int>(fracDecimal);
         hexFractional += (fracInt < 10) ? to_string(fracInt) : string(1, 'A' + fracInt - 10);
         fracDecimal -= fracInt;
     }
 
-    if (repeatStart != -1) {
-        hexFractional = hexFractional.substr(0, repeatStart) + "(" + hexFractional.substr(repeatStart) + ")";
-    }
-
     return fracPart.empty() ? hexInteger : hexInteger + "." + hexFractional;
 }
 
-// Funcion menu
+// Función menú
 void displayMenu() {
     cout << "\n===== Menu de Operaciones =====" << endl;
     cout << "1. Conversion de Binario a Hexadecimal" << endl;
@@ -131,7 +126,7 @@ int main() {
             cout << "Hexadecimal: " << decimalToHex(decimal) << endl;
         }
         else if (choice == 4) {
-            cout << "Gracias! Hasta luego" << endl;
+            cout << "Gracias!" << endl;
             break;
         }
         else {
@@ -143,7 +138,7 @@ int main() {
         cout << "Deseas realizar otra operacion? (s/n): ";
         cin >> again;
         if (again == 'n' || again == 'N') {
-            cout << "Gracias! Hasta luego" << endl;
+            cout << "Gracias!" << endl;
             break;
         }
     }
